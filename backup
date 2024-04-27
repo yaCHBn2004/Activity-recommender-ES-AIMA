@@ -1,0 +1,116 @@
+import aima
+ 
+from aima.logic import *
+
+# Définir une knowledge base
+activity_kb = FolKB()
+
+# Ensemble de faits
+
+# kb.tell(expr('safety(safe)'))
+# kb.tell(expr('problem(overthinking)'))
+
+
+
+
+
+activity_kb.tell(expr('age(teen, x)==>age(over10, x)'))
+activity_kb.tell(expr('age(young, x)==>age(over10, x)'))
+activity_kb.tell(expr('age(adult, x)==>age(over10, x)'))
+activity_kb.tell(expr('age(young, x)==>age(over33, x)'))
+activity_kb.tell(expr('age(teen, x)==>age(over33, x)'))
+
+activity_kb.tell(expr('socialInteraction(alone, x)==>socialInteraction(noMatter, x)'))
+activity_kb.tell(expr('socialInteraction(groupe, x)==>socialInteraction(noMatter, x)'))
+
+
+activity_kb.tell(expr('materialNeeded("30000da", x)==>materialNeeded("10000da", x)'))
+activity_kb.tell(expr('materialNeeded("10000da", x)==>materialNeeded("0da", x)'))
+
+activity_kb.tell(expr('moneySpendingByMounth("5000da", x)==>moneySpendingByMounth("3000da", x)'))
+activity_kb.tell(expr('moneySpendingByMounth("3000da", x)==>moneySpendingByMounth("1000da", x)'))
+activity_kb.tell(expr('moneySpendingByMounth("1000da", x)==>moneySpendingByMounth("0da", x)'))
+
+
+activity_kb.tell(expr('place(interior, x)==>place(whatEver, x)'))
+activity_kb.tell(expr('place(Exterior, x)==>place(whatEver, x)'))
+
+
+activity_kb.tell(expr('ActivitieType(mental, x)&dev(brain, x)==>type(logical, x)'))
+activity_kb.tell(expr('ActivitieType(mental, x)&dev(soul, x)==>type(art, x)'))
+activity_kb.tell(expr('ActivitieType(physical, x )&dev(soul, x)==>type(strength, x)'))
+activity_kb.tell(expr('ActivitieType(physical, x)&dev(brain, x)==>type(flexibility, x)'))
+
+activity_kb.tell(expr('ActivitieType(physical, x)&dev(soul, x)==>type(strength, x)'))
+
+
+
+
+
+
+
+
+#chess 
+activity_kb.tell(expr('type(logical, x)&place(interior, x)&socialInteraction(alone, x)&goalTime(long, x)&moneySpendingByMounth("0da", x)&materialNeeded("0da", x)==>activity(chess ,x )'))
+#football 
+activity_kb.tell(expr('socialInteraction(groupe, x)&safety(noMatter, x)&goalTime(long, x)&age(young, x)&moneySpendingByMounth("3000da", x)==>activity(football, x)'))
+
+#yoga 
+activity_kb.tell(expr('goalTime(long, x)&materialNeeded("10000da", x)==>activity(yoga, x)'))
+
+#sudoko 
+activity_kb.tell(expr('goalTime(short, x)&type(logical, x)==>activity(sudoko ,x)'))
+activity_kb.tell(expr('type(logical, x)&place(interior, x)&moneySpendingByMounth("0da", x)&materialNeeded("0da", x)==>activity(sudoco, x)'))
+
+
+#music 
+activity_kb.tell(expr('type(art, x)&goalTime(long, x)==>activity(music, x)'))
+
+#dance
+activity_kb.tell(expr('type(art, x)&ActivitieType(physical, x)==>activity(dance, x)'))
+
+#painting
+activity_kb.tell(expr('type(art, x)&place(whatever, x)==>activity(painting, x)'))
+
+
+#rock_climbing 
+activity_kb.tell(expr('type(strength, x)&place(exterior, x)==>activity(rock_climbing, x)'))
+
+
+#crossword_puzzles
+activity_kb.tell(expr('type(logical, x)&socialInteraction(alone, x)==>activity(crossword_puzzles, x)'))
+activity_kb.tell(expr('type(logical, x)&place(interior, x)==>activity(crossword_puzzles, x)'))
+
+
+#hiking 
+activity_kb.tell(expr('place(exterior, x)&materialNeeded("30000da", x) & ActivitieType(physical, x)&socialInteraction(groupe, x)==>activity(hiking, x)'))
+
+#photography
+activity_kb.tell(expr('place(exterior, x)&materialNeeded("50000da", x)&socialInteraction(noMatter, x)==>activity(photography, x)'))
+
+#martial_arts
+activity_kb.tell(expr('type(strength, x) ==> activity(martial_arts, x)'))
+
+#swimming
+activity_kb.tell(expr('type(strength, x)==>activity(swimming, x)'))
+
+#cooking
+activity_kb.tell(expr('place(internal, x)&moneySpendingByMounth("5000da", x)&ActivitieType(mental, x)==>activity(cooking, x)'))
+
+#Cycling
+activity_kb.tell(expr('type(flexibility, x)&materialNeeded("30000da, x")&socialInteraction(noMatter, x)==>activity(Cycling, x)'))
+
+#language_learning 
+activity_kb.tell(expr('ActivitieType(Mental, x) & MoneySpendingByMounth("0da", x) & GoalTime(Long , x) ==> activity(Language_learning , x)'))
+
+activity_kb.tell(expr('socialInteraction(alone , Imed)'))
+activity_kb.tell(expr('dev(soul , Imed)'))
+activity_kb.tell(expr('ActivitieType(mental, Imed)'))
+activity_kb.tell(expr('Age(teen, Imed)'))
+activity_kb.tell(expr('goalTime(long, Imed)'))
+activity_kb.tell(expr('moneySpendingByMounth("0da", Imed)'))
+
+print(list(fol_fc_ask(activity_kb, expr("activity(a, Imed)"))))
+
+kb = FolKB()
+activity_kb.tell(expr("Me(Imed)"))
